@@ -1,0 +1,42 @@
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color: #cfcfcfc0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+h1{
+  color: aquamarine;
+  font-size: 3rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  font-family: 'Recursive', sans-serif;
+}
+
+.viewChart{
+  padding: 1.2rem 2rem;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 20px;
+  margin: 30px auto;
+  transition: 1s ease;
+}
+
+.viewChart:hover{
+  transform: translateY(5px);
+  background-color: rgb(0, 174, 255);
+  box-shadow: 0px 5px 10px 0 #111111;
+}
+
+.output{
+  margin-top: 2rem;
+  color: rgb(169, 253, 120);
+  font-size: 1.5rem;
+}
