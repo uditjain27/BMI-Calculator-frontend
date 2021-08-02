@@ -62,29 +62,39 @@ function Chart(props) {
 
     const height = props.location.ChartData[0];
     const weight = props.location.ChartData[1];
-    let weights = weight;
-    console.log(height, weight);
+    let sortedHeight = [];
+    let sortedWeight = [];
 
-    const sortedWeights = weights.sort();
-    console.log(sortedWeights);
-    let sortedHeights = [];
-    /* sortedWeights.forEach((element) => {
-        const ind = weight.findIndex((value, index) => value === element);
-        weight[ind] = 0;
-        sortedHeights.push(height[ind]);
-    });
- */
-    sortedHeights = sortedWeights.map((element) => {
-        const ind = weights.findIndex((value, index) => {
-            console.log("aa",value , element);
-            return value === element;
-        });
-        //console.log("index", ind, weight[ind], height[ind]);
-        weights[ind] = 0;
-        //console.log("index", ind, weights[ind], height[ind]);
-        return height[ind];
-    });
-    console.log(sortedHeights, sortedWeights);
+    (()=>{
+        let data1 = [];
+        let data2 = [];
+        let length = height.length;
+        weight.forEach(element => data1.push(element));
+        height.forEach(element => data2.push(element));
+        for(let i=0;i<length-1; i++){
+            let min = data1[i];
+            let pos = i;
+            for(let j=i+1; j<length; j++){
+                if(data1[j] < min){
+                    min = data1[j];
+                    pos = j;
+                }
+            }
+            let temp = data1[i];
+            data1[i] = data1[pos];
+            data1[pos] = temp;
+
+            temp = data2[i];
+            data2[i] = data2[pos];
+            data2[pos] = temp;
+        }
+        sortedHeight = data2;
+        sortedWeight = data1;
+    })();
+    
+    
+    console.log(height, weight);
+    console.log(sortedHeight, sortedWeight);
 
 
     const data = {
@@ -99,11 +109,26 @@ function Chart(props) {
             }
         ]
     };
+    const SortedData = {
+        labels: sortedWeight,
+        datasets: [
+            {
+                label: "Sorted Weights Dataset",
+                data: sortedHeight,
+                fill: false,
+                backgroundColor: "rgba(75,192,192,0.2)",
+                borderColor: "rgba(75,192,192,1)"
+            }
+        ]
+    };
 
     return (
-        <div>
+        <div className='main'>
             <div className='Line'>
                 <Line data={data} options={options} />
+            </div>
+            <div className='Line'>
+                <Line data={SortedData} options={options} />
             </div>
             <Link to='/'><button className='goBack' type='button'>Go Back</button></Link>
         </div>
