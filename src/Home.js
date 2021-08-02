@@ -34,23 +34,23 @@ function Home() {
     const [ChartData, UpdateData] = useState([[], []]);
 
 
-    useEffect(() => {
-        axios.get(URL_GET).then(res => {
-            ObjData = JSON.parse(res.data);
-            let data1 = [];
-            let data2 = [];
-            data1 = ObjData.map((element) => element.height);
-            data2 = ObjData.map((element) => element.weight);
-            UpdateData([data1, data2]);
-        });
-    }, []);
 
+    axios.get(URL_GET).then(res => {
+        ObjData = JSON.parse(res.data);
+        let data1 = [];
+        let data2 = [];
+        data1 = ObjData.map((element) => element.height);
+        data2 = ObjData.map((element) => element.weight);
+        UpdateData([data1, data2]);
+    });
+
+    
     const BMIHandler = (dataObject) => {
         const output = document.querySelector('.output');
         console.log(dataObject);
         if (dataObject.bmi < 18.9)
             output.innerHTML = `UnderWeight with BMI = ${dataObject.bmi}`;
-        else if (dataObject.bmi >= 18.9 && dataObject.bmi < 25)
+        else if (dataObject.bmi >= 18.49 && dataObject.bmi < 25)
             output.innerHTML = `Normal with BMI = ${dataObject.bmi}`;
         else if (dataObject.bmi >= 25)
             output.innerHTML = `OverWeight with BMI = ${dataObject.bmi}`;
